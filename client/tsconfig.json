@@ -1,27 +1,25 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
+    /* Language and Environment */
     "target": "ES2020",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
 
-    
+    /* Modules */
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node", // Ensure this is correct
+    "resolveJsonModule": true,
     "skipLibCheck": true,
 
-    
+    /* JavaScript Support */
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
 
-    
+    /* Interop Constraints */
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
 
-    
+    /* Type Checking */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -30,9 +28,20 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "useUnknownInCatchVariables": true,
+
+    /* JSX */
+    "jsx": "react-jsx", // Ensure this is correct
+
+    /* Paths and Base URL */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
-  }
+    },
+
+    /* Output Configuration */
+    "outDir": "./dist", // Output directory for compiled files
+    "rootDir": "./src"  // Root directory for input files
+  },
+  "include": ["src/**/*", "index.html"],
+  "exclude": ["node_modules", "dist"]
 }
