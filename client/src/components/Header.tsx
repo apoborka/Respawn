@@ -35,21 +35,27 @@ const Header: React.FC = () => {
 
             <button
               onClick={handleLoginClick}
-              className="ml-4 px-4 py-2 rounded-md border border-white text-white hover:bg-white hover:text-primary transition"
+              className="ml-4 px-4 py-2 rounded-md border border-white text-white hover:bg-white hover:text-red-500 transition"
             >
               Login
             </button>
           </div>
 
           {/* Search Bar */}
-          <div className="mt-4 w-full">
+          <div className="mt-4 w-full flex">
             <input
               type="text"
               placeholder="Search for a game, developer, or genre..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full p-2 rounded-md border border-gray-300"
+              className="flex-grow p-2 rounded-l-md border border-gray-300"
             />
+            <button
+              onClick={() => console.log(`Searching for: ${searchQuery}`)} // Replace with actual search logic
+              className="px-4 py-2 bg-primary text-white border border-white hover:text-red-500 hover:bg-primary-dark transition"
+            >
+              Search
+            </button>
           </div>
         </div>
       </header>
