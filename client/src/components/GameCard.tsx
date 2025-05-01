@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface GameCardProps {
   gameId: number;
   gameName: string;
   images: string[];
-  onFavorite: (gameId: number) => void;
   onWatchlist: (gameId: number) => void;
   onAlreadyPlayed: (gameId: number) => void;
 }
@@ -17,6 +17,7 @@ const GameCard: React.FC<GameCardProps> = ({
   onAlreadyPlayed,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -26,22 +27,38 @@ const GameCard: React.FC<GameCardProps> = ({
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
+  const handleNavigateToDetails = () => {
+    navigate(`/game-details/${gameId}`); // Navigate to GameDetails with gameId
+  };
+
   return (
     <div className="game-card border rounded-lg shadow-lg p-4">
       {/* Game Name */}
       <h3 className="text-lg font-bold text-center mb-4">{gameName}</h3>
-      <div className="carousel relative">
+      <div className="carousel relative" onClick={handleNavigateToDetails}>
         <img
           src={images[currentImageIndex]}
           alt={`${gameName} screenshot`}
-          className="w-full h-64 object-cover rounded-lg"
+          className="w-full h-64 object-cover rounded-lg cursor-pointer"
         />
         {/* Left Button */}
-        <button onClick={handlePrevImage} className="carousel-left-button">
+        <button
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent click event from propagating to the parent
+            handlePrevImage();
+          }}
+          className="carousel-left-button"
+        >
           &#8249;
         </button>
         {/* Right Button */}
-        <button onClick={handleNextImage} className="carousel-right-button">
+        <button
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent click event from propagating to the parent
+            handleNextImage();
+          }}
+          className="carousel-right-button"
+        >
           &#8250;
         </button>
       </div>

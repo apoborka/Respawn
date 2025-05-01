@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar"; // Import the SearchBar component
+import SearchBar from "../components/SearchBar";
 import GameCard from "@/components/GameCard";
 import { Game } from "@/models/Games";
 import { rawgAPI, shortScreenshots } from "@/models/RawgAPI";
@@ -10,7 +10,7 @@ const SearchResultPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = async () => {
-    if (!searchQuery) return; // Prevent empty searches
+    if (!searchQuery) return;
     try {
       const response = await fetch(
         `https://api.rawg.io/api/games?key=aff47dd8e2494bf78e8a9f0930756271&search_precise=true&search=${searchQuery}`
@@ -21,7 +21,6 @@ const SearchResultPage: React.FC = () => {
         gameName: game.name,
         images: game.short_screenshots.map((image: shortScreenshots) => image.image),
       }));
-      // Uncomment and fix sorting logic if needed
       searchGames.sort((a: Game, b: Game) => {
         const nameA = a.gameName.toLowerCase();
         const nameB = b.gameName.toLowerCase();
@@ -67,14 +66,15 @@ const SearchResultPage: React.FC = () => {
   return (
     <div>
       <Header />
-      {/* Add padding to push content below the header */}
-      <SearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        onSearch={handleSearch}
-      />
-      <div className="pt-36 p-4 max-w-7xl mx-auto">
-        {/* Center the heading */}
+      {/* Add padding to account for the Header's height */}
+      <div className="pt-16 p-4 max-w-7xl mx-auto">
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          onSearch={handleSearch}
+        />
+      </div>
+      <div className="pt-8 p-4 max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-4 text-center">GAMES BEING PLAYED</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {games.map((game) => (
@@ -83,9 +83,8 @@ const SearchResultPage: React.FC = () => {
               gameId={game.gameId}
               gameName={game.gameName}
               images={game.images}
-              onFavorite={(gameId) => console.log(`Favorited game with ID: ${gameId}`)}
-              onWatchlist={onWatchlist} // Pass the onWatchlist function
-              onAlreadyPlayed={onAlreadyPlayed} // Pass the onAlreadyPlayed function
+              onWatchlist={onWatchlist}
+              onAlreadyPlayed={onAlreadyPlayed}
             />
           ))}
         </div>
