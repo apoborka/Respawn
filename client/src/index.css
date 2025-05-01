@@ -50,6 +50,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+@keyframes animate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -79,18 +91,89 @@ button img {
 }
 
 button {
-  border-radius: 100px;
-  border: 1px solid transparent;
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 0px;
+  border: 1px solid white;
+  color: white;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background 0.5s ease, transform 0.2s;
+  /* min-width: 80px;
+  max-width: 80px; */
 }
+
 button:hover {
-  border-color: #ff0000;
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 20s infinite;
+  border: 1px solid white;
+  color: white;
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.2s, font-weight 0.2s;
 }
+
+.landing-logo-button {
+  border-radius: 100px;
+  width: 12rem;
+  height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border: 1px solid white;
+  color: white;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.landing-logo-button:hover {
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 5s infinite;
+  transform: scale(1.05);
+}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
