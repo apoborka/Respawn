@@ -70,7 +70,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                 <input
                   type="password"
                   id="confirmPassword"
-                  className="w-full mt-1 p-2 border rounded-md"
+                  className="w-full mt-1 p-2 border rounded-md" /* Matches Password field styling */
                   placeholder="Confirm your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
