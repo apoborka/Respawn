@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import SearchResultPage from "./pages/SearchResult";
-import GameDetailsPage from "./pages/GameDetails"; // Import the GameDetailsPage
+import GameDetailsPage from "./pages/GameDetails";
+import UserAccountPage from "./pages/UserAccount"; // Import the UserAccountPage
 import {
   ApolloClient,
   InMemoryCache,
@@ -15,11 +16,8 @@ const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -29,7 +27,6 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
@@ -41,7 +38,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchResultPage />} />
-          <Route path="/game-details/:gameId" element={<GameDetailsPage />} /> {/* Add GameDetailsPage route */}
+          <Route path="/game-details/:gameId" element={<GameDetailsPage />} />
+          <Route path="/account" element={<UserAccountPage />} /> {/* Add UserAccountPage route */}
         </Routes>
       </Router>
     </ApolloProvider>
