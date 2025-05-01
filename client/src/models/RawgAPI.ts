@@ -1,5 +1,10 @@
 export interface rawgAPI {
-    id: string;
+    id: number;
     name: string;
-    background_image: string;
+    short_screenshots: shortScreenshots[];
+}
+
+export interface shortScreenshots {
+    id: number;
+    image: string;
 }
