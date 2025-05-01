@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import GameCard from "@/components/GameCard";
+import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Game } from "@/models/Games";
@@ -25,13 +26,13 @@ const SearchResultPage: React.FC = () => {
         image.image
       )),
     }))
-    searchGames.sort((a: Game, b: Game) => {
-      const nameA = a.gameName.toLowerCase();
-      const nameB = b.gameName.toLowerCase();
-      if (nameA < nameB) return 1;
-      if (nameA > nameB) return -1;
-      return 0;
-    });
+    // searchGames.sort((a: Game, b: Game) => {
+    //   const nameA = a.gameName.toLowerCase();
+    //   const nameB = b.gameName.toLowerCase();
+    //   if (nameA < nameB) return 1;
+    //   if (nameA > nameB) return -1;
+    //   return 0;
+    // });
     setGames(searchGames);
   }
   
@@ -62,21 +63,9 @@ const SearchResultPage: React.FC = () => {
     <div>
       <Header />
       {/* Add padding to push content below the header */}
-      <div className="mt-4 w-full flex">
-            <input
-              type="text"
-              placeholder="Search for a game, developer, or genre..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow p-2 rounded-l-md border border-gray-300"
-            />
-            <button
-              onClick={() => handleSearch()} // Replace with actual search logic
-              className="px-4 py-2 bg-primary text-white border border-white hover:text-red-500 hover:bg-primary-dark transition"
-            >
-              Search
-            </button>
-      </div>
+      <SearchBar
+        searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={handleSearch}
+      />
       <div className="pt-36 p-4 max-w-7xl mx-auto">
         {/* Center the heading */}
         <h1 className="text-3xl font-bold mb-4 text-center">GAMES BEING PLAYED</h1>
