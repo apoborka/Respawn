@@ -31,7 +31,6 @@ const Header: React.FC = () => {
               />
               <span className="text-xl font-bold whitespace-nowrap">Respawn</span>
             </div>
-
             <button
               onClick={handleLoginClick}
               className="login-button"
