@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import LoginSignupModal from "./LoginSignupModal";
 
 const Header: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
@@ -32,24 +31,12 @@ const Header: React.FC = () => {
               />
               <span className="text-xl font-bold whitespace-nowrap">Respawn</span>
             </div>
-
             <button
               onClick={handleLoginClick}
-              className="ml-4 px-4 py-2 rounded-md border border-white text-white hover:bg-white hover:text-primary transition"
+              className="login-button"
             >
               Login
             </button>
-          </div>
-
-          {/* Search Bar */}
-          <div className="mt-4 w-full">
-            <input
-              type="text"
-              placeholder="Search for a game, developer, or genre..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full p-2 rounded-md border border-gray-300"
-            />
           </div>
         </div>
       </header>

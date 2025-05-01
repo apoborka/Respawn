@@ -50,6 +50,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+@keyframes animate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -79,18 +91,208 @@ button img {
 }
 
 button {
-  border-radius: 100px;
-  border: 1px solid transparent;
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 0px;
+  border: 1px solid white;
+  color: white;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background 0.5s ease, transform 0.2s;
 }
+
 button:hover {
-  border-color: #ff0000;
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 20s infinite;
+  transform: scale(1.05);
 }
+
+/* LandingPage Image Button */
+.landing-logo-button {
+  border-radius: 100px;
+  width: 12rem;
+  height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border: 1px solid white;
+  color: white;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.landing-logo-button:hover {
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 5s infinite;
+  transform: scale(1.05);
+}
+
+/* Login Button */
+.login-button {
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 4px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1rem; /* Ensure consistent font size */
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem; /* Restore original padding */
+  height: auto; /* Ensure height adjusts based on content */
+  min-width: 80px;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.login-button:hover {
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 20s infinite;
+  transform: scale(1.05);
+}
+
+/* Search Button */
+.search-button {
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 4px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  height: auto;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.search-button:hover {
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 20s infinite;
+  transform: scale(1.05);
+}
+
+/* Modal Buttons */
+.modal-button {
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    gray 50%,
+    black 100%
+  );
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 4px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1rem; /* Ensure consistent font size */
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem; /* Standardized padding for consistent size */
+  width: 100%; /* Full width of the container */
+  max-width: 300px; /* Optional: Limit the button width */
+  transition: background 0.5s ease, transform 0.2s;
+  text-align: center;
+}
+
+.modal-button:hover {
+  background: linear-gradient(
+    90deg,
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
+  );
+  background-size: 400% 400%;
+  animation: animate-gradient 20s infinite;
+  transform: scale(1.05);
+}
+
+
+.modal-button.close-button {
+  margin-top: 0.8rem;
+}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
