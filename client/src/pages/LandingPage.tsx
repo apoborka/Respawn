@@ -15,15 +15,15 @@ const LandingPage: React.FC = () => {
 
       {/* Respawn Logo Button */}
       <button
-        onClick={handleNavigate}
-        className="w-48 h-48 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-56 sm:h-56"
-      >
-        <img
-          src="/assets/RespawnLogoRound.png"
-          alt="Respawn Logo"
-          className="w-full h-full rounded-full object-contain"
-        />
-      </button>
+  onClick={handleNavigate}
+  className="landing-logo-button shadow-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-blue-300"
+>
+  <img
+    src="/assets/RespawnLogoRound.png"
+    alt="Respawn Logo"
+    className="w-full h-full rounded-full object-contain"
+  />
+</button>
 
       {/* Subtitle Text */}
       <p className="text-4xl font-bold mt-12 text-center sm:text-5xl">to Respawn...</p>

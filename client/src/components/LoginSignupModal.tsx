@@ -7,6 +7,7 @@ interface LoginSignupModalProps {
 
 const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) => {
   const [isCreatingAccount, setIsCreatingAccount] = useState(false); // State to toggle between login and create account modals
+  const [username, setUsername] = useState(""); // State for username
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,6 +23,9 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
     onClose(); // Close the modal after successful submission
   };
 
+  const isCreateAccountEnabled = username && password && confirmPassword && password === confirmPassword;
+  const isLoginEnabled = username && password;
+
   if (!isOpen) return null;
 
   return (
@@ -32,14 +36,16 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
             <h2 className="text-2xl font-bold mb-4">Create Account</h2>
             <form onSubmit={handleCreateAccountSubmit}>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="username"
                   className="w-full mt-1 p-2 border rounded-md"
-                  placeholder="Enter your email"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -74,11 +80,11 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
               {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
               <button
                 type="submit"
-                disabled={password !== confirmPassword} // Disable button if passwords don't match
-                className={`mt-4 w-full py-2 rounded-md ${
-                  password !== confirmPassword
-                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                disabled={!isCreateAccountEnabled} // Disable button if fields are not valid
+                className={`mt-4 w-full py-2 rounded-md border ${
+                  isCreateAccountEnabled
+                    ? "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:border-green-500"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
               >
                 Create Account
@@ -96,14 +102,16 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
             <h2 className="text-2xl font-bold mb-4">Login</h2>
             <form>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="username"
                   className="w-full mt-1 p-2 border rounded-md"
-                  placeholder="Enter your email"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -116,12 +124,16 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   id="password"
                   className="w-full mt-1 p-2 border rounded-md"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
+                className={`mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md border ${
+                  isLoginEnabled ? "hover:border-green-500 hover:bg-gray-300" : "cursor-not-allowed"
+                }`}
               >
                 Login
               </button>
