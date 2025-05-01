@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import LoginSignupModal from "./LoginSignupModal";
 
 const Header: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
@@ -38,23 +37,6 @@ const Header: React.FC = () => {
               className="login-button"
             >
               Login
-            </button>
-          </div>
-
-          {/* Search Bar */}
-          <div className="mt-4 w-full flex">
-            <input
-              type="text"
-              placeholder="Search for a game, developer, or genre..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow p-2 rounded-l-md border border-gray-300"
-            />
-            <button
-              onClick={() => console.log(`Searching for: ${searchQuery}`)} // Replace with actual search logic
-              className="search-button"
-            >
-              Search
             </button>
           </div>
         </div>
