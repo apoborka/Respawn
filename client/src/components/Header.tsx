@@ -34,13 +34,11 @@ const Header: React.FC = () => {
 
             <button
               onClick={handleLoginClick}
-              className="ml-4 px-4 py-2 rounded-md border border-white text-white hover:bg-white hover:text-red-500 transition"
+              className="login-button"
             >
               Login
             </button>
           </div>
-
-          {/* Search Bar */}
         </div>
       </header>
 
