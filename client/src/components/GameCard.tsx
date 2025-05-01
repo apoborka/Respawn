@@ -1,14 +1,13 @@
 import { useState } from 'react';
 
 interface GameCardProps {
-  gameId: string;
+  gameId: number;
   gameName: string;
   images: string[]; // "Get screenshots for the game."
-  description: string; // "Get details of the game."
-  onFavorite: (gameId: string) => void;
+  onFavorite: (gameId: number) => void;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ gameId, gameName, images, description, onFavorite }) => {
+const GameCard: React.FC<GameCardProps> = ({ gameId, gameName, images, onFavorite }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNextImage = () => {
@@ -52,7 +51,6 @@ const GameCard: React.FC<GameCardProps> = ({ gameId, gameName, images, descripti
       </div>
       <div className="details mt-4">
         <h3 className="text-lg font-bold">{gameName}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
       </div>
     </div>
   );

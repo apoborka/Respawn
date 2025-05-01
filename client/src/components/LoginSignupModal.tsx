@@ -7,6 +7,7 @@ interface LoginSignupModalProps {
 
 const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) => {
   const [isCreatingAccount, setIsCreatingAccount] = useState(false); // State to toggle between login and create account modals
+  const [username, setUsername] = useState(""); // State for username
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,6 +23,9 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
     onClose(); // Close the modal after successful submission
   };
 
+  const isCreateAccountEnabled = username && password && confirmPassword && password === confirmPassword;
+  const isLoginEnabled = username && password;
+
   if (!isOpen) return null;
 
   return (
@@ -29,21 +33,23 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
       <div className="bg-white rounded-lg shadow-lg p-6 w-96">
         {isCreatingAccount ? (
           <>
-            <h2 className="text-2xl font-bold mb-4">Create Account</h2>
-            <form onSubmit={handleCreateAccountSubmit}>
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+            <h2 className="text-2xl font-bold mb-4 text-center">Create Account</h2>
+            <form onSubmit={handleCreateAccountSubmit} className="flex flex-col items-center">
+              <div className="mb-4 w-full">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="username"
                   className="w-full mt-1 p-2 border rounded-md"
-                  placeholder="Enter your email"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
@@ -57,14 +63,14 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm Password
                 </label>
                 <input
                   type="password"
                   id="confirmPassword"
-                  className="w-full mt-1 p-2 border rounded-md"
+                  className="w-full mt-1 p-2 border rounded-md" /* Matches Password field styling */
                   placeholder="Confirm your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -72,42 +78,50 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                 />
               </div>
               {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-              <button
-                type="submit"
-                disabled={password !== confirmPassword} // Disable button if passwords don't match
-                className={`mt-4 w-full py-2 rounded-md ${
-                  password !== confirmPassword
-                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                Create Account
-              </button>
+              <div className="flex flex-col items-center w-full">
+                <button
+                  type="submit"
+                  disabled={!isCreateAccountEnabled} // Disable button if fields are not valid
+                  className={`modal-button ${
+                    isCreateAccountEnabled ? "hover:border-green-500" : "cursor-not-allowed"
+                  }`}
+                >
+                  Create Account
+                </button>
+                <button
+                  onClick={() => setIsCreatingAccount(false)}
+                  className="modal-button"
+                >
+                  Back to Login
+                </button>
+                <button
+                  onClick={onClose}
+                  className="modal-button close-button"
+                >
+                  Close
+                </button>
+              </div>
             </form>
-            <button
-              onClick={() => setIsCreatingAccount(false)}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Back to Login
-            </button>
           </>
         ) : (
           <>
-            <h2 className="text-2xl font-bold mb-4">Login</h2>
-            <form>
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+            <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+            <form className="flex flex-col items-center">
+              <div className="mb-4 w-full">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="username"
                   className="w-full mt-1 p-2 border rounded-md"
-                  placeholder="Enter your email"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
@@ -116,28 +130,35 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   id="password"
                   className="w-full mt-1 p-2 border rounded-md"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
-              <button
-                type="submit"
-                className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-              >
-                Login
-              </button>
+              <div className="flex flex-col items-center w-full">
+                <button
+                  type="submit"
+                  disabled={!isLoginEnabled} // Disable button if fields are not valid
+                  className={`modal-button ${
+                    isLoginEnabled ? "hover:border-green-500" : "cursor-not-allowed"
+                  }`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setIsCreatingAccount(true)}
+                  className="modal-button"
+                >
+                  Create Account
+                </button>
+                <button
+                  onClick={onClose}
+                  className="modal-button close-button"
+                >
+                  Close
+                </button>
+              </div>
             </form>
-            <button
-              onClick={() => setIsCreatingAccount(true)}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Create Account
-            </button>
-            <button
-              onClick={onClose}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Close
-            </button>
           </>
         )}
       </div>
