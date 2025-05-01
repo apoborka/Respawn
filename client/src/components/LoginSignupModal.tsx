@@ -33,9 +33,9 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
       <div className="bg-white rounded-lg shadow-lg p-6 w-96">
         {isCreatingAccount ? (
           <>
-            <h2 className="text-2xl font-bold mb-4">Create Account</h2>
-            <form onSubmit={handleCreateAccountSubmit}>
-              <div className="mb-4">
+            <h2 className="text-2xl font-bold mb-4 text-center">Create Account</h2>
+            <form onSubmit={handleCreateAccountSubmit} className="flex flex-col items-center">
+              <div className="mb-4 w-full">
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
                 </label>
@@ -49,7 +49,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
@@ -63,7 +63,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm Password
                 </label>
@@ -78,30 +78,36 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                 />
               </div>
               {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-              <button
-                type="submit"
-                disabled={!isCreateAccountEnabled} // Disable button if fields are not valid
-                className={`mt-4 w-full py-2 rounded-md border ${
-                  isCreateAccountEnabled
-                    ? "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:border-green-500"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                }`}
-              >
-                Create Account
-              </button>
+              <div className="flex flex-col items-center w-full">
+                <button
+                  type="submit"
+                  disabled={!isCreateAccountEnabled} // Disable button if fields are not valid
+                  className={`modal-button ${
+                    isCreateAccountEnabled ? "hover:border-green-500" : "cursor-not-allowed"
+                  }`}
+                >
+                  Create Account
+                </button>
+                <button
+                  onClick={() => setIsCreatingAccount(false)}
+                  className="modal-button"
+                >
+                  Back to Login
+                </button>
+                <button
+                  onClick={onClose}
+                  className="modal-button close-button"
+                >
+                  Close
+                </button>
+              </div>
             </form>
-            <button
-              onClick={() => setIsCreatingAccount(false)}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Back to Login
-            </button>
           </>
         ) : (
           <>
-            <h2 className="text-2xl font-bold mb-4">Login</h2>
-            <form>
-              <div className="mb-4">
+            <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+            <form className="flex flex-col items-center">
+              <div className="mb-4 w-full">
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
                 </label>
@@ -115,7 +121,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 w-full">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
@@ -129,27 +135,30 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
-              <button
-                type="submit"
-                className={`mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md border ${
-                  isLoginEnabled ? "hover:border-green-500 hover:bg-gray-300" : "cursor-not-allowed"
-                }`}
-              >
-                Login
-              </button>
+              <div className="flex flex-col items-center w-full">
+                <button
+                  type="submit"
+                  disabled={!isLoginEnabled} // Disable button if fields are not valid
+                  className={`modal-button ${
+                    isLoginEnabled ? "hover:border-green-500" : "cursor-not-allowed"
+                  }`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setIsCreatingAccount(true)}
+                  className="modal-button"
+                >
+                  Create Account
+                </button>
+                <button
+                  onClick={onClose}
+                  className="modal-button close-button"
+                >
+                  Close
+                </button>
+              </div>
             </form>
-            <button
-              onClick={() => setIsCreatingAccount(true)}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Create Account
-            </button>
-            <button
-              onClick={onClose}
-              className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300"
-            >
-              Close
-            </button>
           </>
         )}
       </div>

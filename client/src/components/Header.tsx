@@ -35,7 +35,7 @@ const Header: React.FC = () => {
 
             <button
               onClick={handleLoginClick}
-              className="ml-4 px-4 py-2 rounded-md border border-white text-white hover:bg-white hover:text-red-500 transition"
+              className="login-button"
             >
               Login
             </button>
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
             />
             <button
               onClick={() => console.log(`Searching for: ${searchQuery}`)} // Replace with actual search logic
-              className="px-4 py-2 bg-primary text-white border border-white hover:text-red-500 hover:bg-primary-dark transition"
+              className="search-button"
             >
               Search
             </button>
