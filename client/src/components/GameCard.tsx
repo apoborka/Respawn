@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface GameCardProps {
   gameId: number;
   gameName: string;
-  images: string[]; // "Get screenshots for the game."
+  images: string[];
   onFavorite: (gameId: number) => void;
+  onWatchlist: (gameId: number) => void;
+  onAlreadyPlayed: (gameId: number) => void;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ gameId, gameName, images, onFavorite }) => {
+const GameCard: React.FC<GameCardProps> = ({
+  gameId,
+  gameName,
+  images,
+  onWatchlist,
+  onAlreadyPlayed,
+}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNextImage = () => {
@@ -18,39 +26,41 @@ const GameCard: React.FC<GameCardProps> = ({ gameId, gameName, images, onFavorit
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  const handleFavorite = () => {
-    onFavorite(gameId);
-  };
-
   return (
     <div className="game-card border rounded-lg shadow-lg p-4">
+      {/* Game Name */}
+      <h3 className="text-lg font-bold text-center mb-4">{gameName}</h3>
       <div className="carousel relative">
         <img
           src={images[currentImageIndex]}
           alt={`${gameName} screenshot`}
           className="w-full h-64 object-cover rounded-lg"
         />
-        <button
-          onClick={handlePrevImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-        >
+        {/* Left Button */}
+        <button onClick={handlePrevImage} className="carousel-left-button">
           &#8249;
         </button>
-        <button
-          onClick={handleNextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-        >
+        {/* Right Button */}
+        <button onClick={handleNextImage} className="carousel-right-button">
           &#8250;
-        </button>
-        <button
-          onClick={handleFavorite}
-          className="absolute top-2 right-2 bg-yellow-400 text-black p-2 rounded-full"
-        >
-          ★
         </button>
       </div>
       <div className="details mt-4">
-        <h3 className="text-lg font-bold">{gameName}</h3>
+        {/* Watchlist and Already Played Buttons */}
+        <div className="flex justify-between mt-2">
+          <button
+            onClick={() => onWatchlist(gameId)}
+            className="watchlist-button w-1/2 py-2"
+          >
+            Watchlist
+          </button>
+          <button
+            onClick={() => onAlreadyPlayed(gameId)}
+            className="already-played-button w-1/2 py-2"
+          >
+            Already Played
+          </button>
+        </div>
       </div>
     </div>
   );

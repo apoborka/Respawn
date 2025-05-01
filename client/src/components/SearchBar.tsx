@@ -11,7 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
     <div className="mt-4 w-full flex">
       <input
         type="text"
-        placeholder="Search for a game, developer, or genre..."
+        placeholder="Search for a game..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="flex-grow p-2 rounded-l-md border border-gray-300"
