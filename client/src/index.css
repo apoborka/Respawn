@@ -115,12 +115,16 @@ button:hover {
   justify-content: center;
   background: linear-gradient(
     90deg,
-    black 0%,
-    gray 50%,
-    black 100%
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
   );
-  background-size: 200% 200%;
-  animation: black-to-gray-gradient 10s infinite;
+  background-size: 400% 400%;
+  animation: animate-gradient 5s infinite;
   border: 1px solid white;
   color: white;
   font-size: 1em;
@@ -167,6 +171,32 @@ button:hover {
 }
 
 .login-button:hover {
+  background-size: 400% 400%;
+  animation: animate-gradient 8s infinite;
+  transform: scale(1.05);
+  border: 1px solid rgb(216, 86, 86);
+}
+
+/* Account Button */
+.account-button {
+  background: darkgreen;
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 4px;
+  border-color: whitesmoke;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  height: auto;
+  min-width: 80px;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.account-button:hover {
   background-size: 400% 400%;
   animation: animate-gradient 8s infinite;
   transform: scale(1.05);

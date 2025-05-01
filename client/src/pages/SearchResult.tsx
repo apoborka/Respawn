@@ -66,8 +66,8 @@ const SearchResultPage: React.FC = () => {
   return (
     <div>
       <Header />
-      {/* Add padding to account for the Header's height */}
-      <div className="pt-16 p-4 max-w-7xl mx-auto">
+      {/* Add padding-top to account for the fixed Header */}
+      <div className="pt-20 p-4 max-w-7xl mx-auto">
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
