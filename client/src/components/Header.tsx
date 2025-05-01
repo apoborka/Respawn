@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginSignupModal from "./LoginSignupModal";
+import Auth from '../utils/auth'
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
+
+
 
   const handleLoginClick = () => {
     setIsModalOpen(true); // Open the modal
@@ -31,12 +34,21 @@ const Header: React.FC = () => {
               />
               <span className="text-xl font-bold whitespace-nowrap">Respawn</span>
             </div>
-            <button
-              onClick={handleLoginClick}
-              className="login-button"
-            >
-              Login
-            </button>
+              {Auth.loggedIn() ? (
+                <button
+                onClick={Auth.logout}
+                className="login-button"
+              >
+                Logout
+              </button>
+              ) : (
+                <button
+                  onClick={handleLoginClick}
+                  className="login-button"
+                >
+                  Login
+                </button>
+              )}
           </div>
         </div>
       </header>
