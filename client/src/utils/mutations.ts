@@ -15,3 +15,29 @@ export const LOGIN_USER = gql`
         }
     }
 `;
+
+export const ADD_GAME = gql`
+    mutation saveGame($input: GameInput!) {
+        saveGame(input: $input) {
+            _id
+            username
+            savedGames{
+                gameId
+                played
+            }
+        }
+    }
+`;
+
+export const REMOVE_GAME = gql`
+    mutation removeGame($gameId: Int!) {
+        removeGame(gameId: $gameId){
+            _id
+            username
+            savedGames{
+                gameId
+                played
+            }
+        }
+    }
+`;

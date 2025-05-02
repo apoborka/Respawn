@@ -16,6 +16,8 @@
 
   import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { ADD_GAME } from "@/utils/mutations";
 import parse from "html-react-parser";
 import Auth from "../utils/auth";
 import Header from "../components/Header";
@@ -38,6 +40,7 @@ const GameDetailsPage: React.FC = () => {
   const [game, setGame] = useState<GameDetails>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [addGame] = useMutation(ADD_GAME);
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (game?.images.length ?? 0));
@@ -47,12 +50,46 @@ const GameDetailsPage: React.FC = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + (game?.images.length ?? 0)) % (game?.images.length ?? 0));
   };
 
-  const onWatchlist = (gameId: number) => {
-    console.log(`Game with ID ${gameId} added to Watchlist`);
+  const onWatchlist = async (gameId: number) => {
+       const token = Auth.loggedIn() ? Auth.getToken() : null;
+       if (!token) {
+         return false;
+       }
+   
+       const gameToSave = {
+         gameId,
+         played: false
+       }
+       try{
+         const result = await addGame({variables: {input:{...gameToSave}}})
+         if (!result) {
+           throw new Error('Error With Mongoose')
+         }
+       }catch(err) {
+         console.log(err);
+       }
+       return true
   };
 
-  const onAlreadyPlayed = (gameId: number) => {
-    console.log(`Game with ID ${gameId} marked as Already Played`);
+  const onAlreadyPlayed = async (gameId: number) => {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        if (!token) {
+          return false;
+        }
+    
+        const gameToSave = {
+          gameId,
+          played: true
+        }
+        try{
+          const result = await addGame({variables: {input:{...gameToSave}}})
+          if (!result) {
+            throw new Error('Error With Mongoose')
+          }
+        }catch(err) {
+          console.log(err);
+        }
+        return true
   };
 
   const handleWatchlistClick = () => {
