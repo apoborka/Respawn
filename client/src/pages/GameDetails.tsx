@@ -15,7 +15,7 @@
   // "Get a list of most recent posts from the game's subreddit." (SUCCESS - MODERATION WARNING!!)
 
   import React, { useEffect, useState } from "react";
-  import { useParams } from "react-router-dom";
+  import { useParams, useNavigate } from "react-router-dom";
   import parse from "html-react-parser";
   import Auth from "../utils/auth";
   import Header from "../components/Header";
@@ -34,6 +34,7 @@
   
   const GameDetailsPage: React.FC = () => {
     const { gameId } = useParams<{ gameId: string }>();
+    const navigate = useNavigate();
     const [game, setGame] = useState<GameDetails>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -113,33 +114,42 @@
         <Header />
         {/* Add extra padding to ensure content is spaced below the header */}
         <div className="pt-28 p-4 max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6 text-center">{game.name}</h1>
-          <div className="carousel relative mb-6">
-            <img
-              src={game.images[currentImageIndex]}
-              alt={`${game.name} screenshot`}
-              className="w-full h-96 object-cover rounded-lg"
-            />
+          {/* Back Button and Game Name */}
+          <div className="flex items-center mb-6">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePrevImage();
-              }}
-              className="carousel-left-button absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
+              onClick={() => navigate(-1)} // Navigate back to the previous page
+              className="mr-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800"
             >
-              &#8249;
+              &larr; Back
             </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleNextImage();
-              }}
-              className="carousel-right-button absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
-            >
-              &#8250;
-            </button>
+            <h1 className="text-3xl font-bold">{game.name}</h1>
           </div>
-          {/* Buttons moved back below the image */}
+          <div className="carousel relative mb-6">
+  <img
+    src={game.images[currentImageIndex]}
+    alt={`${game.name} screenshot`}
+    className="w-full h-96 object-cover rounded-lg"
+  />
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      handlePrevImage();
+    }}
+    className="carousel-left-button"
+  >
+    &#8249;
+  </button>
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      handleNextImage();
+    }}
+    className="carousel-right-button"
+  >
+    &#8250;
+  </button>
+</div>
+          {/* Watchlist and AlreadyPlayed Buttons */}
           <div className="flex justify-between mb-6">
             <button
               onClick={handleWatchlistClick}
