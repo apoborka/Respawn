@@ -50,6 +50,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Animation Keyframes */
 @keyframes animate-gradient {
   0% {
     background-position: 0% 50%;
@@ -77,8 +78,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  justify-content: center; /* Center horizontally */
-  align-items: center;    /* Center vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -91,39 +92,17 @@ button img {
 }
 
 button {
-  background: linear-gradient(
-    90deg,
-    black 0%,
-    gray 50%,
-    black 100%
-  );
+
   background-size: 200% 200%;
-  animation: black-to-gray-gradient 10s infinite;
-  border-radius: 0px;
-  border: 1px solid white;
   color: white;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: transparent;
   cursor: pointer;
-  transition: background 0.5s ease, transform 0.2s;
 }
 
 button:hover {
-  background: linear-gradient(
-    90deg,
-    green 0%,
-    rgb(6, 6, 168) 16.6%,
-    indigo 33.3%,
-    rgb(197, 18, 117) 50%,
-    red 66.6%,
-    orange 83.3%,
-    gold 100%
-  );
   background-size: 400% 400%;
-  animation: animate-gradient 20s infinite;
-  transform: scale(1.05);
 }
 
 /* LandingPage Image Button */
@@ -136,12 +115,16 @@ button:hover {
   justify-content: center;
   background: linear-gradient(
     90deg,
-    black 0%,
-    gray 50%,
-    black 100%
+    green 0%,
+    rgb(6, 6, 168) 16.6%,
+    indigo 33.3%,
+    rgb(197, 18, 117) 50%,
+    red 66.6%,
+    orange 83.3%,
+    gold 100%
   );
-  background-size: 200% 200%;
-  animation: black-to-gray-gradient 10s infinite;
+  background-size: 400% 400%;
+  animation: animate-gradient 5s infinite;
   border: 1px solid white;
   color: white;
   font-size: 1em;
@@ -170,56 +153,11 @@ button:hover {
 
 /* Login Button */
 .login-button {
-  background: linear-gradient(
-    90deg,
-    black 0%,
-    gray 50%,
-    black 100%
-  );
+  background: darkgreen;
   background-size: 200% 200%;
   animation: black-to-gray-gradient 10s infinite;
   border-radius: 4px;
-  border: 1px solid white;
-  color: white;
-  font-size: 1rem; /* Ensure consistent font size */
-  font-weight: 500;
-  font-family: inherit;
-  background-color: transparent;
-  cursor: pointer;
-  padding: 0.5rem 1rem; /* Restore original padding */
-  height: auto; /* Ensure height adjusts based on content */
-  min-width: 80px;
-  transition: background 0.5s ease, transform 0.2s;
-}
-
-.login-button:hover {
-  background: linear-gradient(
-    90deg,
-    green 0%,
-    rgb(6, 6, 168) 16.6%,
-    indigo 33.3%,
-    rgb(197, 18, 117) 50%,
-    red 66.6%,
-    orange 83.3%,
-    gold 100%
-  );
-  background-size: 400% 400%;
-  animation: animate-gradient 20s infinite;
-  transform: scale(1.05);
-}
-
-/* Search Button */
-.search-button {
-  background: linear-gradient(
-    90deg,
-    black 0%,
-    gray 50%,
-    black 100%
-  );
-  background-size: 200% 200%;
-  animation: black-to-gray-gradient 10s infinite;
-  border-radius: 4px;
-  border: 1px solid white;
+  border-color: whitesmoke;
   color: white;
   font-size: 1rem;
   font-weight: 500;
@@ -228,23 +166,71 @@ button:hover {
   cursor: pointer;
   padding: 0.5rem 1rem;
   height: auto;
+  min-width: 80px;
   transition: background 0.5s ease, transform 0.2s;
 }
 
-.search-button:hover {
+.login-button:hover {
+  background-size: 400% 400%;
+  animation: animate-gradient 8s infinite;
+  transform: scale(1.05);
+  border: 1px solid rgb(216, 86, 86);
+}
+
+/* Account Button */
+.account-button {
+  background: darkgreen;
+  background-size: 200% 200%;
+  animation: black-to-gray-gradient 10s infinite;
+  border-radius: 4px;
+  border-color: whitesmoke;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  height: auto;
+  min-width: 80px;
+  transition: background 0.5s ease, transform 0.2s;
+}
+
+.account-button:hover {
+  background-size: 400% 400%;
+  animation: animate-gradient 8s infinite;
+  transform: scale(1.05);
+  border: 1px solid rgb(216, 86, 86);
+}
+
+/* Search Button */
+.search-button {
   background: linear-gradient(
     90deg,
-    green 0%,
-    rgb(6, 6, 168) 16.6%,
-    indigo 33.3%,
-    rgb(197, 18, 117) 50%,
-    red 66.6%,
-    orange 83.3%,
-    gold 100%
-  );
-  background-size: 400% 400%;
-  animation: animate-gradient 20s infinite;
-  transform: scale(1.05);
+    rgb(18, 137, 216) 0%,
+    rgb(6, 6, 168) 20%,
+    indigo 40%,
+    rgb(197, 18, 117) 60%,
+    red 75%,
+    orange 90%,
+    rgb(231, 173, 11) 100%
+  ); /* Adjusted percentages for a smoother gradient */
+  background-size: 400% 400%; /* Enable gradient animation */
+  animation: animate-gradient 8s infinite; /* Play the animation at all times */
+  border-radius: 4px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  height: auto;
+  transition: transform 0.2s ease; /* Smooth scaling on hover */
+}
+
+.search-button:hover {
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
 /* Modal Buttons */
@@ -257,17 +243,17 @@ button:hover {
   );
   background-size: 200% 200%;
   animation: black-to-gray-gradient 10s infinite;
-  border-radius: 4px;
+  border-radius: 50px;
   border: 1px solid white;
   color: white;
-  font-size: 1rem; /* Ensure consistent font size */
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
   background-color: transparent;
   cursor: pointer;
-  padding: 0.75rem 1.5rem; /* Standardized padding for consistent size */
-  width: 100%; /* Full width of the container */
-  max-width: 300px; /* Optional: Limit the button width */
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  max-width: 300px;
   transition: background 0.5s ease, transform 0.2s;
   text-align: center;
 }
@@ -288,6 +274,89 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Watchlist Button */
+.game-card .watchlist-button {
+  background-color: #34d399;
+  color: white;
+  border: none;
+  border-radius: 0.375rem 0 0 0.375rem;
+  transition: background-color 0.3s ease;
+}
+
+.game-card .watchlist-button:hover {
+  background-color: #059669;
+}
+
+/* Already Played Button */
+.game-card .already-played-button {
+  background-color: #a78bfa;
+  color: white;
+  border: none;
+  border-radius: 0 0.375rem 0.375rem 0;
+  transition: background-color 0.3s ease;
+}
+
+.game-card .already-played-button:hover {
+  background-color: #7c3aed;
+}
+
+/* Left Carousel Button */
+.carousel-left-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3rem;
+  background-color: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.carousel-left-button:focus,
+.carousel-left-button:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.carousel-left-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Right Carousel Button */
+.carousel-right-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 3rem;
+  background-color: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.carousel-right-button:focus,
+.carousel-right-button:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.carousel-right-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
 .modal-button.close-button {
   margin-top: 0.8rem;

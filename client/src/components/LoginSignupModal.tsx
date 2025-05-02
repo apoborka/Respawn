@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER, LOGIN_USER } from "../utils/mutations";
+import Auth from '../utils/auth'
 
 interface LoginSignupModalProps {
   isOpen: boolean;
@@ -11,19 +14,61 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [createUser] = useMutation(ADD_USER);
+  const [loginUser] = useMutation(LOGIN_USER);
 
-  const handleCreateAccountSubmit = (e: React.FormEvent) => {
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    if(password.length < 8) {
+      setError("Password is too short");
       return;
     }
-    setError("");
-    console.log("Account created successfully!");
-    onClose(); // Close the modal after successful submission
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+    const userCreateData = {username,password}
+    try {
+      const {data} = await createUser({
+        variables: {...userCreateData}
+      });
+      Auth.login(data.addUser.token)
+      setError("");
+      setUsername("");
+      setPassword("");
+      setConfirmPassword("");
+      console.log("Account created successfully!");
+      onClose(); // Close the modal after successful submission
+    }
+    catch(err){
+      setError("Error Creating Account")
+      return;
+    }
+
   };
 
-  const isCreateAccountEnabled = username && password && confirmPassword && password === confirmPassword;
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const userLoginData = {username, password}
+    try{
+      const {data} = await loginUser({
+        variables: {...userLoginData}
+      });
+      Auth.login(data.login.token);
+      setError("");
+      setUsername("");
+      setPassword("");
+      setConfirmPassword("");
+      onClose();
+    }
+    catch(err) {
+      setError("Error Logging In");
+      return;
+    }
+  }
+
+  const isCreateAccountEnabled = username && password && confirmPassword;
   const isLoginEnabled = username && password;
 
   if (!isOpen) return null;
@@ -106,7 +151,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
         ) : (
           <>
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-            <form className="flex flex-col items-center">
+            <form onSubmit={handleLoginSubmit} className="flex flex-col items-center">
               <div className="mb-4 w-full">
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
@@ -135,6 +180,7 @@ const LoginSignupModal: React.FC<LoginSignupModalProps> = ({ isOpen, onClose }) 
                   required
                 />
               </div>
+              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
               <div className="flex flex-col items-center w-full">
                 <button
                   type="submit"

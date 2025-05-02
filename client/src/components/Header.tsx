@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginSignupModal from "./LoginSignupModal";
+import Auth from "../utils/auth";
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
     <>
       <header className="fixed top-0 left-0 w-full bg-primary text-primary-foreground shadow-md z-10">
         <div className="flex flex-col items-center p-4 max-w-7xl mx-auto">
-          {/* Top Row: Logo, Title, and Login Button */}
+          {/* Top Row: Logo, Title, and Buttons */}
           <div className="flex items-center justify-between w-full">
             <div
               className="flex items-center cursor-pointer"
@@ -31,12 +32,33 @@ const Header: React.FC = () => {
               />
               <span className="text-xl font-bold whitespace-nowrap">Respawn</span>
             </div>
-            <button
-              onClick={handleLoginClick}
-              className="login-button"
-            >
-              Login
-            </button>
+            <div className="flex items-center gap-4">
+              {Auth.loggedIn() ? (
+                <>
+                  {/* Account Button */}
+                  <button
+                    onClick={() => navigate("/account")}
+                    className="account-button"
+                  >
+                    Account
+                  </button>
+                  {/* Logout Button */}
+                  <button
+                    onClick={Auth.logout}
+                    className="login-button"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleLoginClick}
+                  className="login-button"
+                >
+                  Login
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </header>
