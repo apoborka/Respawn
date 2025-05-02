@@ -13,10 +13,12 @@ Respawn is a single-page React/TypeScript application that uses RAWG.io's gaming
 - [Questions](#questions)
 
 ## Installation
-Visit the Deployment URL: **{Input deployment URL here}**
+No installation required. See "Usage" below.
 
 ## Usage
-Visit the deployed application or run it locally to explore video game information. Use the search functionality to find games, view detailed game pages, and interact with community content.
+Visit the Deployment URL: **[Respawn - Hosted on Render](https://respawn-ult4.onrender.com/)**
+
+Visit the deployed application or run it locally to explore video game information. Use the search functionality to find games, view detailed game pages, and save games to your Watchlist or Already Played list.
 
 Placeholder for screenshots:
 - **Game Search Page**: [Placeholder for screenshot]
