@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import GameCard from "@/components/GameCard";
+import LoginSignupModal from "../components/LoginSignupModal";
 import { Game } from "@/models/Games";
 import { rawgAPI, shortScreenshots } from "@/models/RawgAPI";
 
 const SearchResultPage: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for login modal
 
   const handleSearch = async () => {
     if (!searchQuery) return;
@@ -21,13 +23,6 @@ const SearchResultPage: React.FC = () => {
         gameName: game.name,
         images: game.short_screenshots.map((image: shortScreenshots) => image.image),
       }));
-      searchGames.sort((a: Game, b: Game) => {
-        const nameA = a.gameName.toLowerCase();
-        const nameB = b.gameName.toLowerCase();
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-      });
       setGames(searchGames);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -66,7 +61,6 @@ const SearchResultPage: React.FC = () => {
   return (
     <div>
       <Header />
-      {/* Add padding-top to account for the fixed Header */}
       <div className="pt-20 p-4 max-w-7xl mx-auto">
         <SearchBar
           searchQuery={searchQuery}
@@ -85,10 +79,12 @@ const SearchResultPage: React.FC = () => {
               images={game.images}
               onWatchlist={onWatchlist}
               onAlreadyPlayed={onAlreadyPlayed}
+              onOpenLoginModal={() => setIsModalOpen(true)} // Pass function to open modal
             />
           ))}
         </div>
       </div>
+      <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
