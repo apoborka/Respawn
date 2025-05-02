@@ -139,40 +139,50 @@
               &#8250;
             </button>
           </div>
-          <div className="details mt-6">
-            <div className="flex justify-between mb-6">
-              <button
-                onClick={handleWatchlistClick}
-                className="watchlist-button w-1/2 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-              >
-                Watchlist
-              </button>
-              <button
-                onClick={handleAlreadyPlayedClick}
-                className="already-played-button w-1/2 py-2 ml-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-              >
-                Already Played
-              </button>
+          {/* Buttons moved back below the image */}
+          <div className="flex justify-between mb-6">
+            <button
+              onClick={handleWatchlistClick}
+              className="watchlist-button w-1/2 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              Watchlist
+            </button>
+            <button
+              onClick={handleAlreadyPlayedClick}
+              className="already-played-button w-1/2 py-2 ml-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              Already Played
+            </button>
+          </div>
+          <div className="details mt-6 flex gap-4">
+            {/* Description Box */}
+            <div className="flex-1 bg-gray-100 p-4 rounded-lg shadow-md">
+              <h2 className="text-xl font-bold mb-4">Description</h2>
+              <div className="text-lg">{parse(game.description)}</div>
             </div>
-            <div className="text-lg mb-4">{parse(game.description)}</div>
-            <p className="text-lg font-medium mb-2">
-              <strong>MetaCritic Rating:</strong> {game.metacriticRating}
-            </p>
-            <p className="text-lg font-medium mb-2">
-              <strong>Release Date:</strong> {game.releaseDate}
-            </p>
-            <p className="text-lg font-medium mb-2">
-              <strong>ESRB Rating:</strong> {game.esrbRating}
-            </p>
-            <p className="text-lg font-medium mb-2">
-              <strong>Platforms:</strong> {game.platforms.join(", ")}
-            </p>
-            <p className="text-lg font-medium">
-              <strong>Game Website:</strong>{" "}
-              <a href={game.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                {game.website}
-              </a>
-            </p>
+  
+            {/* Game Details Box */}
+            <div className="w-1/3 bg-gray-100 p-4 rounded-lg shadow-md break-words">
+              <h2 className="text-xl font-bold mb-4">Game Details</h2>
+              <p className="text-lg font-medium mb-2">
+                <strong>MetaCritic Rating:</strong> {game.metacriticRating}
+              </p>
+              <p className="text-lg font-medium mb-2">
+                <strong>Release Date:</strong> {game.releaseDate}
+              </p>
+              <p className="text-lg font-medium mb-2">
+                <strong>ESRB Rating:</strong> {game.esrbRating}
+              </p>
+              <p className="text-lg font-medium mb-2">
+                <strong>Platforms:</strong> {game.platforms.join(", ")}
+              </p>
+              <p className="text-lg font-medium">
+                <strong>Game Website:</strong>{" "}
+                <a href={game.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                  {game.website}
+                </a>
+              </p>
+            </div>
           </div>
         </div>
         <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
