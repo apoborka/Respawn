@@ -18,8 +18,9 @@
   import { useParams } from "react-router-dom";
   import parse from "html-react-parser";
   import Auth from "../utils/auth";
+  import Header from "../components/Header";
   import LoginSignupModal from "../components/LoginSignupModal";
-
+  
   interface GameDetails {
     name: string;
     description: string;
@@ -32,10 +33,9 @@
   }
   
   const GameDetailsPage: React.FC = () => {
-    const { gameId } = useParams<{ gameId: string }>(); // Get gameId from URL
+    const { gameId } = useParams<{ gameId: string }>();
     const [game, setGame] = useState<GameDetails>();
-    const [isModalOpen, setIsModalOpen] = useState(false); // State for login modal
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
     const handleNextImage = () => {
@@ -45,7 +45,7 @@
     const handlePrevImage = () => {
       setCurrentImageIndex((prevIndex) => (prevIndex - 1 + (game?.images.length ?? 0)) % (game?.images.length ?? 0));
     };
-
+  
     const onWatchlist = (gameId: number) => {
       console.log(`Game with ID ${gameId} added to Watchlist`);
     };
@@ -53,23 +53,23 @@
     const onAlreadyPlayed = (gameId: number) => {
       console.log(`Game with ID ${gameId} marked as Already Played`);
     };
-
+  
     const handleWatchlistClick = () => {
       if (!Auth.loggedIn()) {
-        setIsModalOpen(true); // Open the login modal if the user is not authenticated
+        setIsModalOpen(true);
         return;
       }
-      onWatchlist(Number(gameId)); // Call the onWatchlist function if authenticated
+      onWatchlist(Number(gameId));
     };
   
     const handleAlreadyPlayedClick = () => {
       if (!Auth.loggedIn()) {
-        setIsModalOpen(true); // Open the login modal if the user is not authenticated
+        setIsModalOpen(true);
         return;
       }
-      onAlreadyPlayed(Number(gameId)); // Call the onAlreadyPlayed function if authenticated
+      onAlreadyPlayed(Number(gameId));
     };
-    
+  
     useEffect(() => {
       const fetchGameDetails = async () => {
         try {
@@ -87,81 +87,95 @@
             esrbRating: data.esrb_rating?.name || "Not Rated",
             platforms: data.platforms.map((platform: { platform: { name: string } }) => platform.platform.name),
           };
-          gameDetails.description = gameDetails.description.replace(/\n/g, '<br />'); // Remove new line characters
-          // Fetch additional images
-          const img_response = await fetch(`https://api.rawg.io/api/games/${gameId}/screenshots?key=aff47dd8e2494bf78e8a9f0930756271`)
-          const img_data = await img_response.json();
-          for (let i = 0; i < img_data.results.length; i++) {
-            gameDetails.images.push(img_data.results[i].image);
+          gameDetails.description = gameDetails.description.replace(/\n/g, "<br />");
+          const imgResponse = await fetch(
+            `https://api.rawg.io/api/games/${gameId}/screenshots?key=aff47dd8e2494bf78e8a9f0930756271`
+          );
+          const imgData = await imgResponse.json();
+          for (let i = 0; i < imgData.results.length; i++) {
+            gameDetails.images.push(imgData.results[i].image);
           }
           setGame(gameDetails);
         } catch (error) {
           console.error("Error fetching game details:", error);
         }
-      }
-
+      };
+  
       fetchGameDetails();
-    }, [])
-
+    }, [gameId]);
+  
     if (!game) {
-      return <div>Loading...</div>; // Show a loading state while fetching data
+      return <div>Loading...</div>;
     }
   
     return (
-      <div className="p-4">
-        <h1 className="text-3xl font-bold mb-4">{game?.name}</h1>
-        <div className="carousel relative">
-        <img
-          src={game?.images[currentImageIndex]}
-          alt={`${game?.name} screenshot`}
-          className="w-full h-full object-cover rounded-lg cursor-pointer"
-        />
-        {/* Left Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent click event from propagating to the parent
-            handlePrevImage();
-          }}
-          className="carousel-left-button"
-        >
-          &#8249;
-        </button>
-        {/* Right Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent click event from propagating to the parent
-            handleNextImage();
-          }}
-          className="carousel-right-button"
-        >
-          &#8250;
-        </button>
-        <div className="details mt-4">
-        <div className="flex justify-between mt-2">
-          <button
-            onClick={handleWatchlistClick}
-            className="watchlist-button w-1/2 py-2"
-          >
-            Watchlist
-          </button>
-          <button
-            onClick={handleAlreadyPlayedClick}
-            className="already-played-button w-1/2 py-2"
-          >
-            Already Played
-          </button>
+      <div>
+        <Header />
+        {/* Add extra padding to ensure content is spaced below the header */}
+        <div className="pt-28 p-4 max-w-7xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6 text-center">{game.name}</h1>
+          <div className="carousel relative mb-6">
+            <img
+              src={game.images[currentImageIndex]}
+              alt={`${game.name} screenshot`}
+              className="w-full h-96 object-cover rounded-lg"
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevImage();
+              }}
+              className="carousel-left-button absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
+            >
+              &#8249;
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextImage();
+              }}
+              className="carousel-right-button absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
+            >
+              &#8250;
+            </button>
+          </div>
+          <div className="details mt-6">
+            <div className="flex justify-between mb-6">
+              <button
+                onClick={handleWatchlistClick}
+                className="watchlist-button w-1/2 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
+                Watchlist
+              </button>
+              <button
+                onClick={handleAlreadyPlayedClick}
+                className="already-played-button w-1/2 py-2 ml-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+              >
+                Already Played
+              </button>
+            </div>
+            <div className="text-lg mb-4">{parse(game.description)}</div>
+            <p className="text-lg font-medium mb-2">
+              <strong>MetaCritic Rating:</strong> {game.metacriticRating}
+            </p>
+            <p className="text-lg font-medium mb-2">
+              <strong>Release Date:</strong> {game.releaseDate}
+            </p>
+            <p className="text-lg font-medium mb-2">
+              <strong>ESRB Rating:</strong> {game.esrbRating}
+            </p>
+            <p className="text-lg font-medium mb-2">
+              <strong>Platforms:</strong> {game.platforms.join(", ")}
+            </p>
+            <p className="text-lg font-medium">
+              <strong>Game Website:</strong>{" "}
+              <a href={game.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                {game.website}
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
-        <div className="text-lg ">{parse(game?.description || "")}</div>
-        <p className="text-lg font-medium mt-4">MetaCritic Rating: {game?.metacriticRating}</p>
-        <p className="text-lg font-medium">Release Date: {game?.releaseDate}</p>
-        <p className="text-lg font-medium">ESRB Rating: {game?.esrbRating}</p>
-        <p className="text-lg font-medium">Platforms: {game?.platforms.join(", ")}</p>
-        <p className="text-lg font-medium">Game Website:
-          <a href={game?.website} target='_blank'>{game?.website}</a>
-        </p>
-      </div>
-      <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     );
   };
