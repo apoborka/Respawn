@@ -21,6 +21,7 @@ import { ADD_GAME } from "@/utils/mutations";
 import parse from "html-react-parser";
 import Auth from "../utils/auth";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import LoginSignupModal from "../components/LoginSignupModal";
 
 interface GameDetails {
@@ -172,7 +173,7 @@ const GameDetailsPage: React.FC = () => {
           <img
             src={game.images[currentImageIndex]}
             alt={`${game.name} screenshot`}
-            className="w-full h-96 object-cover rounded-lg"
+            className="w-full h-full object-cover rounded-lg"
           />
           <button
             onClick={(e) => {
@@ -243,6 +244,7 @@ const GameDetailsPage: React.FC = () => {
         </div>
       </div>
       <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Footer />
     </div>
   );
 };

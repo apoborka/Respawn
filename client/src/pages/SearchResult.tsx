@@ -8,6 +8,7 @@ import GameCard from "@/components/GameCard";
 import LoginSignupModal from "../components/LoginSignupModal";
 import { Game } from "@/models/Games";
 import { rawgAPI, shortScreenshots } from "@/models/RawgAPI";
+import Footer from "../components/Footer";
 
 
 
@@ -99,33 +100,39 @@ const SearchResultPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Header />
-      <div className="pt-20 p-4 max-w-7xl mx-auto">
-        <SearchBar
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          onSearch={handleSearch}
-        />
-      </div>
-      <div className="pt-8 p-4 max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4 text-center">GAMES BEING PLAYED</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {games.map((game) => (
-            <GameCard
-              key={game.gameId}
-              gameId={game.gameId}
-              gameName={game.gameName}
-              images={game.images}
-              onWatchlist={onWatchlist}
-              onAlreadyPlayed={onAlreadyPlayed}
-              onOpenLoginModal={() => setIsModalOpen(true)} // Pass function to open modal
-            />
-          ))}
-        </div>
-      </div>
-      <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    <div className="flex flex-col min-h-screen">
+  <Header />
+  {/* Wrapper for centering the SearchBar */}
+  <div className="flex justify-center items-center pt-22 pb-4 px-4">
+    <div className="w-full max-w-5xl">
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onSearch={handleSearch}
+      />
     </div>
+  </div>
+  <div className="pt-4 p-4 max-w-7xl mx-auto flex-grow">
+  <h1 className="text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent tracking-wide uppercase">
+  TOP GAMES TODAY
+</h1>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {games.map((game) => (
+        <GameCard
+          key={game.gameId}
+          gameId={game.gameId}
+          gameName={game.gameName}
+          images={game.images}
+          onWatchlist={onWatchlist}
+          onAlreadyPlayed={onAlreadyPlayed}
+          onOpenLoginModal={() => setIsModalOpen(true)}
+        />
+      ))}
+    </div>
+  </div>
+  <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+  <Footer />
+</div>
   );
 };
 
