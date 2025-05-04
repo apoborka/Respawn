@@ -7,7 +7,6 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { REMOVE_GAME } from '../utils/mutations';
 
-
 const UserAccountPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"watchlist" | "played">("watchlist");
   const [watchlistGames, setWatchlistGames] = useState<Game[]>([]);
