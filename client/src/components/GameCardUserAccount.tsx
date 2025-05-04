@@ -86,7 +86,7 @@ const GameCardUserAccount: React.FC<GameCardUserAccountProps> = ({
                 e.stopPropagation();
                 handleAddToPlayed();
               }}
-              className="bg-purple-500 text-white w-1/2 py-2 rounded-r-md hover:bg-purple-600"
+              className="already-played-button w-1/2 py-2"
             >
               Add to Already Played
             </button>
