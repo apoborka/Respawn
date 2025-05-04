@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { mockGames } from "../mockData"; // Replace with actual data fetching logic
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
 import GameCard from "../components/GameCard";
 import { Game } from "../models/Games"
 
@@ -11,14 +9,12 @@ import { REMOVE_GAME } from '../utils/mutations';
 
 const UserAccountPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"watchlist" | "played">("watchlist");
-  const [searchQuery, setSearchQuery] = useState("");
   const [watchlistGames, setWatchlistGames] = useState<Game[]>([]);
   const [playedGames, setPlayedGames] = useState<Game[]>([]);
   const { loading, data } = useQuery(QUERY_ME);
   const userData = data?.me
   useEffect(() => {
     const fetchGameDetails = async () => {
-      console.log(userData.savedGames)
       const watchlist = [];
       const played = [];
       for(const game of userData.savedGames){
@@ -52,26 +48,10 @@ const UserAccountPage: React.FC = () => {
     return <h2>LOADING...</h2>;
   }
 
-
-  
-
-
-
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header Component */}
       <Header />
-
-      {/* SearchBar */}
-      <div className="flex justify-center items-center pt-22 pb-4 px-4">
-        <div className="w-full max-w-5xl">
-          <SearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onSearch={() => console.log("Search triggered:", searchQuery)}
-          />
-        </div>
-      </div>
 
       {/* Header Text */}
       <div className="text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent tracking-wide uppercase">
