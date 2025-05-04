@@ -1,10 +1,30 @@
 import { Schema, model, type Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+interface GameDocument extends Document {
+    gameId: number;
+    played: boolean;
+}
+
+const GameSchema = new Schema<GameDocument>({
+    gameId:{
+        type: Number,
+    },
+    played:{
+        type: Boolean
+    },
+    },
+    {
+        _id:false
+    }
+)
+
+
 interface UserDocument extends Document {
     id: string;
     username: string;
     password: string;
+    savedGames: GameDocument[];
     isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -19,6 +39,7 @@ const userSchema = new Schema<UserDocument>(
             type: String,
             required: true,
         },
+        savedGames: [GameSchema],
     }
 )
 

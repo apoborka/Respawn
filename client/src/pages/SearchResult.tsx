@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_GAME } from "@/utils/mutations";
+import Auth from "@/utils/auth";
 import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import GameCard from "@/components/GameCard";
@@ -6,10 +9,13 @@ import LoginSignupModal from "../components/LoginSignupModal";
 import { Game } from "@/models/Games";
 import { rawgAPI, shortScreenshots } from "@/models/RawgAPI";
 
+
+
 const SearchResultPage: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // State for login modal
+  const [addGame] = useMutation(ADD_GAME);
 
   const handleSearch = async () => {
     if (!searchQuery) return;
@@ -29,12 +35,46 @@ const SearchResultPage: React.FC = () => {
     }
   };
 
-  const onWatchlist = (gameId: number) => {
-    console.log(`Game with ID ${gameId} added to Watchlist`);
+  const onWatchlist = async (gameId: number) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+
+    const gameToSave = {
+      gameId,
+      played: false
+    }
+    try{
+      const result = await addGame({variables: {input:{...gameToSave}}})
+      if (!result) {
+        throw new Error('Error With Mongoose')
+      }
+    }catch(err) {
+      console.log(err);
+    }
+    return true
   };
 
-  const onAlreadyPlayed = (gameId: number) => {
-    console.log(`Game with ID ${gameId} marked as Already Played`);
+  const onAlreadyPlayed = async (gameId: number) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+
+    const gameToSave = {
+      gameId,
+      played: true
+    }
+    try{
+      const result = await addGame({variables: {input:{...gameToSave}}})
+      if (!result) {
+        throw new Error('Error With Mongoose')
+      }
+    }catch(err) {
+      console.log(err);
+    }
+    return true
   };
 
   useEffect(() => {
