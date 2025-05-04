@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { mockGames } from "../mockData"; // Replace with actual data fetching logic
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import GameCard from "../components/GameCard";
 
@@ -86,9 +85,6 @@ const UserAccountPage: React.FC = () => {
               ))}
         </div>
       </div>
-
-      {/* Footer Component */}
-      <Footer />
     </div>
   );
 };

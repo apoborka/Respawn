@@ -33,7 +33,7 @@ const Header: React.FC = () => {
               />
               <span className="text-xl font-bold whitespace-nowrap">Respawn</span>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
               {Auth.loggedIn() ? (
                 <>
                   {/* Conditionally Render Button */}
