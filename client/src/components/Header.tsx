@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import LoginSignupModal from "./LoginSignupModal";
 import Auth from "../utils/auth";
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current route
 
   const handleLoginClick = () => {
     setIsModalOpen(true); // Open the modal
@@ -35,13 +36,22 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-4">
               {Auth.loggedIn() ? (
                 <>
-                  {/* Account Button */}
-                  <button
-                    onClick={() => navigate("/account")}
-                    className="account-button"
-                  >
-                    Account
-                  </button>
+                  {/* Conditionally Render Button */}
+                  {location.pathname === "/account" ? (
+                    <button
+                      onClick={() => navigate("/search")}
+                      className="account-button"
+                    >
+                      Back to Search
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => navigate("/account")}
+                      className="account-button"
+                    >
+                      Account
+                    </button>
+                  )}
                   {/* Logout Button */}
                   <button
                     onClick={Auth.logout}
@@ -61,6 +71,8 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+        {/* Animated Bar */}
+        <div className="animated-bar w-full h-2"></div>
       </header>
 
       {/* Modal */}
