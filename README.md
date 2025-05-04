@@ -34,7 +34,6 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 There are no tests implemented at this time.
 
 ## Questions
-## Questions
 For any questions regarding this project, contact the project contributors via:  
 - [apoborka](https://github.com/apoborka)  
 - [santoshalper](https://github.com/santoshalper)  
