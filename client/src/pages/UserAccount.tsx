@@ -3,9 +3,9 @@ import Header from "../components/Header";
 import GameCardUserAccount from "../components/GameCardUserAccount";
 import { Game } from "../models/Games";
 
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-import { REMOVE_GAME } from '../utils/mutations';
+import { ADD_GAME, REMOVE_GAME } from '../utils/mutations';
 
 const UserAccountPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"watchlist" | "played">("watchlist");
@@ -13,6 +13,36 @@ const UserAccountPage: React.FC = () => {
   const [playedGames, setPlayedGames] = useState<Game[]>([]);
   const { loading, data } = useQuery(QUERY_ME);
   const userData = data?.me;
+  const [addGame] = useMutation(ADD_GAME);
+  const [removeGame] = useMutation(REMOVE_GAME);
+
+  const onAlreadyPlayed = async (gameId: number) => {
+      const gameToSave = {
+        gameId,
+        played: true
+      }
+      try{
+        const result = await addGame({variables: {input:{...gameToSave}}})
+        if (!result) {
+          throw new Error('Error With Mongoose')
+        }
+      }catch(err) {
+        console.log(err);
+      }
+      return true
+    };
+
+    const onRemove = async (gameId: number) => {
+      try{
+        const result = await removeGame({variables: {gameId}})
+        if (!result) {
+          throw new Error('Error With Mongoose')
+        }
+      }catch(err) {
+        console.log(err);
+      }
+      return true
+    }
 
   useEffect(() => {
     const fetchGameDetails = async () => {
@@ -96,6 +126,8 @@ const UserAccountPage: React.FC = () => {
                   gameName={game.gameName}
                   images={game.images}
                   activeTab="watchlist"
+                  onAlreadyPlayed={onAlreadyPlayed}
+                  onRemove={onRemove}
                 />
               ))
             : playedGames.map((game) => (
@@ -105,6 +137,8 @@ const UserAccountPage: React.FC = () => {
                   gameName={game.gameName}
                   images={game.images}
                   activeTab="played"
+                  onAlreadyPlayed={onAlreadyPlayed}
+                  onRemove={onRemove}
                 />
               ))}
         </div>
