@@ -97,7 +97,7 @@ const GameCardUserAccount: React.FC<GameCardUserAccountProps> = ({
               e.stopPropagation();
               handleRemoveFromList();
             }}
-            className="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600"
+            className="bg-red-300 text-white w-full py-2 rounded-md hover:bg-red-400 focus:bg-red-400"
           >
             Remove from List
           </button>

@@ -199,13 +199,13 @@ const GameDetailsPage: React.FC = () => {
         <div className="flex justify-between mb-6">
           <button
             onClick={handleWatchlistClick}
-            className="watchlist-button w-1/2 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="watchlist-button w-1/2 py-2"
           >
             Watchlist
           </button>
           <button
             onClick={handleAlreadyPlayedClick}
-            className="already-played-button w-1/2 py-2 ml-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            className="already-played-button w-1/2 py-2"
           >
             Already Played
           </button>
