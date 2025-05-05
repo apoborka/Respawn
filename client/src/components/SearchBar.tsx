@@ -7,8 +7,13 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSearch }) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch();
+  };
+
   return (
-    <div className="mt-4 w-full flex">
+    <form onSubmit={handleSubmit} className="mt-4 w-full flex">
       <input
         type="text"
         placeholder="Search for a game..."
@@ -17,12 +22,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
         className="flex-grow p-2 rounded-l-md border border-gray-300 bg-gray-200 text-black placeholder-gray-500"
       />
       <button
-        onClick={onSearch}
+        type="submit"
         className="search-button"
       >
         Search
       </button>
-    </div>
+    </form>
   );
 };
 
