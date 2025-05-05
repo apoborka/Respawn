@@ -1,20 +1,20 @@
 // API Calls to include:
 
-  // *Page Header*
-  // *Game Name*
-  // *Image Carousel* "Get screenshots for the game." (SUCCESS)
-  // *Game Rating* "Get a list of games." KEY: Metacritic (SUCCESS)
+// *Page Header*
+// *Game Name*
+// *Image Carousel* "Get screenshots for the game." (SUCCESS)
+// *Game Rating* "Get a list of games." KEY: Metacritic (SUCCESS)
 
-  // *Game Details*
-  // "Get details of the game." (SUCCESS)
-  // "Get a list of DLC's for the game, GOTY and other editions, companion apps, etc." (SUCCESS)
-  // "Get a list of games that are part of the same series." (SUCCESS)
-  // "Get links to the stores that sell the game." (SUCCESS)
+// *Game Details*
+// "Get details of the game." (SUCCESS)
+// "Get a list of DLC's for the game, GOTY and other editions, companion apps, etc." (SUCCESS)
+// "Get a list of games that are part of the same series." (SUCCESS)
+// "Get links to the stores that sell the game." (SUCCESS)
 
-  // *Community Section*
-  // "Get a list of most recent posts from the game's subreddit." (SUCCESS - MODERATION WARNING!!)
+// *Community Section*
+// "Get a list of most recent posts from the game's subreddit." (SUCCESS - MODERATION WARNING!!)
 
-  import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_GAME } from "@/utils/mutations";
@@ -44,53 +44,59 @@ const GameDetailsPage: React.FC = () => {
   const [addGame] = useMutation(ADD_GAME);
 
   const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (game?.images.length ?? 0));
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex + 1) % (game?.images.length ?? 0)
+    );
   };
 
   const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + (game?.images.length ?? 0)) % (game?.images.length ?? 0));
+    setCurrentImageIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + (game?.images.length ?? 0)) %
+        (game?.images.length ?? 0)
+    );
   };
 
   const onWatchlist = async (gameId: number) => {
-       const token = Auth.loggedIn() ? Auth.getToken() : null;
-       if (!token) {
-         return false;
-       }
-   
-       const gameToSave = {
-         gameId,
-         played: false
-       }
-       try{
-         const result = await addGame({variables: {input:{...gameToSave}}})
-         if (!result) {
-           throw new Error('Error With Mongoose')
-         }
-       }catch(err) {
-         console.log(err);
-       }
-       return true
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+
+    const gameToSave = {
+      gameId,
+      played: false,
+    };
+    try {
+      const result = await addGame({ variables: { input: { ...gameToSave } } });
+      if (!result) {
+        throw new Error("Error With Mongoose");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    return true;
   };
 
   const onAlreadyPlayed = async (gameId: number) => {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-        if (!token) {
-          return false;
-        }
-    
-        const gameToSave = {
-          gameId,
-          played: true
-        }
-        try{
-          const result = await addGame({variables: {input:{...gameToSave}}})
-          if (!result) {
-            throw new Error('Error With Mongoose')
-          }
-        }catch(err) {
-          console.log(err);
-        }
-        return true
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+
+    const gameToSave = {
+      gameId,
+      played: true,
+    };
+    try {
+      const result = await addGame({ variables: { input: { ...gameToSave } } });
+      if (!result) {
+        throw new Error("Error With Mongoose");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    return true;
   };
 
   const handleWatchlistClick = () => {
@@ -124,9 +130,14 @@ const GameDetailsPage: React.FC = () => {
           images: [data.background_image],
           website: data.website,
           esrbRating: data.esrb_rating?.name || "Not Rated",
-          platforms: data.platforms.map((platform: { platform: { name: string } }) => platform.platform.name),
+          platforms: data.platforms.map(
+            (platform: { platform: { name: string } }) => platform.platform.name
+          ),
         };
-        gameDetails.description = gameDetails.description.replace(/\n/g, "<br />");
+        gameDetails.description = gameDetails.description.replace(
+          /\n/g,
+          "<br />"
+        );
         const imgResponse = await fetch(
           `https://api.rawg.io/api/games/${gameId}/screenshots?key=aff47dd8e2494bf78e8a9f0930756271`
         );
@@ -230,7 +241,12 @@ const GameDetailsPage: React.FC = () => {
             </p>
             <p className="text-base font-medium">
               <strong>Game Website:</strong>{" "}
-              <a href={game.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+              <a
+                href={game.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
                 {game.website}
               </a>
             </p>
@@ -243,7 +259,10 @@ const GameDetailsPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <LoginSignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <LoginSignupModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <Footer />
     </div>
   );
