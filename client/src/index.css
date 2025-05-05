@@ -92,9 +92,8 @@ button img {
 }
 
 button {
-
   background-size: 200% 200%;
-  color: white;
+  /* color: white; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -275,29 +274,29 @@ button:hover {
 }
 
 /* Watchlist Button */
-.game-card .watchlist-button {
-  background-color: #34d399;
-  color: white;
+.watchlist-button {
+  background-color: #34d399 !important; /* Green */
+  color: white !important;
   border: none;
   border-radius: 0.375rem 0 0 0.375rem;
   transition: background-color 0.3s ease;
 }
 
-.game-card .watchlist-button:hover {
-  background-color: #059669;
+.watchlist-button:hover {
+  background-color: #059669 !important; /* Darker Green */
 }
 
 /* Already Played Button */
-.game-card .already-played-button {
-  background-color: #a78bfa;
-  color: white;
+.already-played-button {
+  background-color: #a78bfa !important; /* Purple */
+  color: white !important;
   border: none;
   border-radius: 0 0.375rem 0.375rem 0;
   transition: background-color 0.3s ease;
 }
 
-.game-card .already-played-button:hover {
-  background-color: #7c3aed;
+.already-played-button:hover {
+  background-color: #7c3aed !important; /* Darker Purple */
 }
 
 /* Left Carousel Button */
