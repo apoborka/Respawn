@@ -20,9 +20,24 @@ Visit the Deployment URL: **[Respawn - Hosted on Render](https://respawn-ult4.on
 
 Visit the deployed application or run it locally to explore video game information. Use the search functionality to find games, view detailed game pages, and save games to your Watchlist or Already Played list.
 
-Placeholder for screenshots:
-- **Game Search Page**: [Placeholder for screenshot]
-- **Game Details Page**: [Placeholder for screenshot]
+When loading the page you'll be first directed to the landing page. Click the Respawn logo to enter the site.
+
+After entering the site, users will be shown top rated games as cards and a search bar to search for other game-cards. Clicking the sides of the game-cards will allow users to scroll through game images and clicking the center will take users to a game description page. If users are logged in they can add a game-card to their watchlist or already played list.
+
+![Search Results Page](assets/search-results-page.png)
+
+If login button is clicked, user will be prompted to login or create an account.
+
+![Create Account](assets/create-account.png)
+
+When users click a game to view, they will be redirected to a page displaying details of the game. These details include MetaCritic Rating, Release Date, ESRB Rating, Platforms the game is available on, the game website and a description of the game.
+
+![Game Details Page](assets/game-details-page.png)
+
+When users are logged in and click the account button, they will be redirected to a personal page where they can view games on their watchlist and already played list. Games can be moved from the watchlist to the played list or removed from the account.
+
+![Watchlist Page](assets/watchlist-page.png)
+
 
 ## License
 This project is licensed under the MIT license. For more details, see the license link: (https://opensource.org/licenses/MIT)
